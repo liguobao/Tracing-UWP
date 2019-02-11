@@ -1,0 +1,881 @@
+﻿<Page
+    x:Class="Tracing.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c4Fcontrols="using:Coding4Fun.Toolkit.Controls"
+    xmlns:converters1="using:Edi.UWP.Helpers.Converters"
+    xmlns:developerTools="using:Microsoft.Toolkit.Uwp.DeveloperTools"
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Tracing.Controls"
+    xmlns:converters="using:Tracing.Core.Converters"
+    xmlns:customPens="using:Tracing.CustomPens"
+    NavigationCacheMode="Required"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+    Loaded="MainPage_OnLoaded"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <x:Boolean x:Key="TrueValue">True</x:Boolean>
+        <x:Boolean x:Key="FalseValue">False</x:Boolean>
+        <x:Int32 x:Key="InkWithTransparentBackground">0</x:Int32>
+        <x:Int32 x:Key="InkWithColoredBackground">1</x:Int32>
+        <converters:ImageOpacityConverter x:Key="ImageOpacityConverter"/>
+        <converters:BoolToValidationColorConverter x:Key="BoolToValidationColorConverter"/>
+        <converters1:ColorToSolidColorBrushValueConverter x:Key="ColorToSolidColorBrushValueConverter"/>
+        <converters1:ColorHexStringToBrushConverter x:Key="ColorHexStringToBrushConverter" />
+        <converters1:ColorHexStringToColorConverter x:Key="ColorHexStringToColorConverter" />
+        <converters1:ColorToHexStringConverter x:Key="ColorToHexStringConverter" />
+        <converters1:ColorToRgbStringConverter x:Key="ColorToRGBStringConverter"/>
+        <converters1:ColorToCMYKStringConverter x:Key="ColorToCMYKStringConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource TracingAcrylicBrush}" KeyDown="LayoutRoot_KeyDown" KeyUp="LayoutRoot_KeyUp">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="26" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <Storyboard x:Name="BorderFadeInStoryboard">
+                <DoubleAnimation From="0" To="1" 
+                                 Storyboard.TargetName="BorderMessage" 
+                                 Storyboard.TargetProperty="Opacity" Duration="0:0:0.5" />
+            </Storyboard>
+            <Storyboard x:Name="BorderFadeOutStoryboard">
+                <DoubleAnimation From="1" To="0" 
+                                 Storyboard.TargetName="BorderMessage" 
+                                 Storyboard.TargetProperty="Opacity" Duration="0:0:0.5" />
+            </Storyboard>
+        </Grid.Resources>
+
+        <!--Title Bar-->
+        <Grid x:Name="TitleBar" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="{x:Bind CoreTitleBarHeight, Mode=OneWay}" Canvas.ZIndex="3">
+            <Rectangle x:Name="TitleBarBackgroundElement" Fill="Transparent" />
+            <Grid Padding="{x:Bind CoreTitleBarPadding, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <ToggleButton Command="{Binding CommandToggleFullScreen}"
+                                  x:Uid="ToggleFullScreenModeButton" Background="Transparent">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE740;" FontSize="15" />
+                    </ToggleButton>
+
+                    <TextBlock FontSize="12" Margin="5,0,0,0" VerticalAlignment="Center" >
+                        <Run x:Uid="AboutAppTitle" Text="#AboutAppTitle" />
+                        <Run Text="{Binding CurrentDocumentTitle, Mode=OneWay}" />
+                    </TextBlock>
+                    <Border Background="{ThemeResource SystemControlBackgroundBaseLowBrush}" Margin="10,0,0,0" Padding="8,2" CornerRadius="10" Visibility="{Binding Document.IsUnsaved}">
+                        <TextBlock x:Uid="TxtUnsaved" Text="#TxtUnsaved" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ProgressBar x:Name="ReplayProgress" 
+                                 Width="80" Height="13" 
+                                 Margin="5,0,0,0" 
+                                 VerticalAlignment="Center" 
+                                 Foreground="LimeGreen" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="BtnFeedback" 
+                            Style="{StaticResource IconButtonStyle}"
+                            FontFamily="Segoe UI"
+                            Content="🙈"
+                            Click="BtnFeedback_Click" FontSize="15"
+                            ToolTipService.ToolTip="Send Feedback" />
+
+                    <controls:StatusBarSeperator />
+
+                    <Button Command="{Binding CommandUndo}" ToolTipService.ToolTip="Undo" Style="{StaticResource IconButtonStyle}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" FontSize="15" />
+                    </Button>
+                    <Button Command="{Binding CommandRedo}" ToolTipService.ToolTip="Redo" Style="{StaticResource IconButtonStyle}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A6;" FontSize="15" />
+                    </Button>
+
+                    <controls:StatusBarSeperator />
+
+                    <ToggleButton ToolTipService.ToolTip="Touch Drawing" 
+                                  IsChecked="{Binding IsTouchDrawingEnabled, Mode=TwoWay}"
+                                  Style="{StaticResource IconToggleButtonStyle}"
+                                  IsEnabled="{Binding IsToggleTouchEnabled, Mode=OneWay}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED5F;" FontSize="15" />
+                    </ToggleButton>
+                    <ToggleButton ToolTipService.ToolTip="Mouse Writing" 
+                                  IsChecked="{Binding IsMouseDrawingEnabled, Mode=TwoWay}"
+                                  Style="{StaticResource IconToggleButtonStyle}"
+                                  IsEnabled="{Binding IsToggleMouseEnabled}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE962;" FontSize="15" />
+                    </ToggleButton>
+
+                    <controls:StatusBarSeperator />
+
+                    <Button Style="{StaticResource IconButtonStyle}" IsEnabled="{x:Bind IsBoundRectPresent, Mode=OneWay}" Click="OnCopy">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE16F;" FontSize="15" />
+                    </Button>
+
+                    <Button x:Name="BtnPasteInk" Style="{StaticResource IconButtonStyle}" IsEnabled="{Binding CanPasteInk, Mode=OneWay}" Click="BtnPasteInk_Click">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE16D;" FontSize="15" />
+                    </Button>
+
+                    <Button x:Name="BtnShare" Click="BtnShare_OnClick" x:Uid="BtnShare" Style="{StaticResource IconButtonStyle}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" FontSize="15" />
+                    </Button>
+                    <Button Command="{Binding CommandPrint}" x:Uid="BtnPrint" Style="{StaticResource IconButtonStyle}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2F6;" FontSize="15" />
+                    </Button>
+
+                    <controls:StatusBarSeperator />
+
+                    <Button x:Name="BtnSettings" Style="{StaticResource IconButtonStyle}">
+                        <interactivity:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=BtnSettings}">
+                                <ic:NavigateToPageAction TargetPage="Tracing.Views.SettingsPage" />
+                            </ic:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE115;" FontSize="15" />
+                    </Button>
+
+                    <Button x:Name="BtnHelp" Style="{StaticResource IconButtonStyle}">
+                        <interactivity:Interaction.Behaviors>
+                            <ic:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=BtnHelp}">
+                                <ic:NavigateToPageAction TargetPage="Tracing.Views.WelcomeFlipPage" />
+                            </ic:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11B;" FontSize="15" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!--Main Toolbar-->
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="48" Padding="10,0,0,0">
+            <CommandBar VerticalAlignment="Top" 
+                            DefaultLabelPosition="Right" 
+                            Background="Transparent">
+                <CommandBar.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <InkToolbar x:Name="InkTB" TargetInkCanvas="{x:Bind Ink}" 
+                                        Loaded="InkTB_OnLoaded"
+                                        InitialControls="None"
+                                        IsStencilButtonCheckedChanged="InkTB_OnIsStencilButtonCheckedChanged"
+                                        InkDrawingAttributesChanged="InkTB_OnInkDrawingAttributesChanged"
+                                        ActiveToolChanged="InkTB_OnActiveToolChanged">
+                            <InkToolbar.Resources>
+                                <customPens:CalligraphicPen x:Key="CalligraphicPen"/>
+                                <customPens:MarkerPen x:Key="MarkerPen"/>
+                            </InkToolbar.Resources>
+                            <InkToolbarBallpointPenButton Name="PenButton" />
+                            <InkToolbarPencilButton Name="PencilButton" />
+                            <InkToolbarCustomPenButton CustomPen="{StaticResource CalligraphicPen}"
+                                                           SelectedBrushIndex="0"
+                                                           MinStrokeWidth="4"
+                                                           MaxStrokeWidth="10"
+                                                           x:Name="CalligraphicPen"
+                                                           ToolTipService.ToolTip="Calligraphy pen">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDFB;" FontSize="16" />
+                                <InkToolbarCustomPenButton.ConfigurationContent>
+                                    <InkToolbarPenConfigurationControl/>
+                                </InkToolbarCustomPenButton.ConfigurationContent>
+                            </InkToolbarCustomPenButton>
+                            <InkToolbarCustomPenButton Name="MarkerButton" CustomPen="{StaticResource MarkerPen}" 
+                                                           SelectedStrokeWidth="12" 
+                                                           ToolTipService.ToolTip="Marker">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE193;" FontSize="16" />
+                                <InkToolbarCustomPenButton.ConfigurationContent>
+                                    <InkToolbarPenConfigurationControl />
+                                </InkToolbarCustomPenButton.ConfigurationContent>
+                            </InkToolbarCustomPenButton>
+                            <InkToolbarEraserButton IsClearAllVisible="{x:Bind Settings.ShowEraseAllMenuButton, Mode=OneWay}" />
+                            <InkToolbarStencilButton IsProtractorItemVisible="{x:Bind Settings.ShowProtractor, Mode=OneWay}" />
+                        </InkToolbar>
+                        <AppBarButton  x:Name="BringIntoViewButton"
+                                           IsEnabled="False"
+                                           Width="50"
+                                           Style="{StaticResource AppBarButtonRevealStyle}"
+                                           Click="OnBringIntoView">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2B3;" />
+                        </AppBarButton>
+                        <controls:StatusBarSeperator />
+                        <AppBarButton x:Name="AdvColor" 
+                                          Click="AdvColor_OnClick" 
+                                          Style="{StaticResource AppBarButtonRevealStyle}"
+                                          ToolTipService.ToolTip="Advanced Color" 
+                                          Width="50">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE790;" FontSize="16" />
+                        </AppBarButton>
+                        <Border VerticalAlignment="Stretch"
+                                    CornerRadius="7"
+                                    Background="{Binding CurrentLockedColorBrush}" 
+                                    Visibility="{Binding ElementName=ChkLockColor, Path=IsChecked, Mode=TwoWay}"
+                                    Padding="10,5" Margin="0,5,0,5">
+                            <TextBlock x:Uid="TxtColorLocked" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" />
+                        </Border>
+                        <ItemsControl x:Name="RecentColorList" ItemsSource="{Binding RecentBindingColors, Mode=OneWay}" Margin="10,0,0,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="BrdRecentColorItem" 
+                                                Background="{Binding}" 
+                                                BorderThickness="0"
+                                                Height="32" 
+                                                Width="32"
+                                                Margin="0,0,10,0"
+                                                Command="{Binding DataContext.CommandPickRecentColor, ElementName=RecentColorList}"   
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource CircleButtonStyle}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </CommandBar.Content>
+
+
+                <AppBarButton x:Uid="BtnClearAll" Icon="Delete" Label="#BtnClearAll" Command="{Binding CommandClearAll}" Style="{StaticResource AppBarButtonRevealStyle}" />
+
+                <AppBarButton x:Uid="BtnLayers" Icon="Pictures" Label="#BtnLayers" Style="{StaticResource AppBarButtonRevealStyle}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyout.MenuFlyoutPresenterStyle>
+                                <Style TargetType="MenuFlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </MenuFlyout.MenuFlyoutPresenterStyle>
+
+                            <ToggleMenuFlyoutItem x:Name="ToggleInkLayer"
+                                                      x:Uid="ToggleInkLayer" 
+                                                      Text="#ToggleInkLayer" 
+                                                      IsChecked="True" />
+
+                            <ToggleMenuFlyoutItem x:Name="ToggleImageLayer"
+                                                      x:Uid="ToggleImageLayer" 
+                                                      Text="#ToggleImageLayer"
+                                                      IsChecked="True" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+
+                <AppBarButton x:Uid="BtnChoosePic" Icon="OpenFile" Label="#BtnChoosePic" Style="{StaticResource AppBarButtonRevealStyle}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyout.MenuFlyoutPresenterStyle>
+                                <Style TargetType="MenuFlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyoutItem x:Uid="BtnOpenImageFile" 
+                                                Text="#BtnOpenImageFile"
+                                                Command="{Binding CommandPickImageFile}"/>
+
+                            <MenuFlyoutItem x:Name="BtnOpenSampleImage"
+                                                x:Uid="BtnOpenSampleImage" 
+                                                Text="#BtnOpenSampleImage"
+                                                Click="BtnSampleImage_Click" />
+
+                            <MenuFlyoutItem x:Name="BtnTakePicture"
+                                                x:Uid="BtnTakePicture" 
+                                                Text="#BtnTakePicture"
+                                                Click="BtnTakePicture_Click" />
+
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutSubItem x:Uid="FlyoutOpenInk" Text="#FlyoutOpenInk">
+                                <MenuFlyoutItem x:Uid="BtnOpenInkFile"
+                                                    Text="#BtnOpenInkFile"
+                                                    Command="{Binding CommandLoadInkFile}"/>
+                                <MenuFlyoutItem x:Name="BtnOpenGifFile"
+                                                    x:Uid="BtnOpenGifFile" 
+                                                    Text="#BtnOpenGifFile"
+                                                    Click="BtnOpenGifFile_Click"/>
+                            </MenuFlyoutSubItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Uid="BtnClearPic" 
+                                                Text="#BtnClearPic"
+                                                Command="{Binding ClearImageSource}"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Save" x:Uid="BtnSave" Label="#BtnSave" Style="{StaticResource AppBarButtonRevealStyle}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyout.MenuFlyoutPresenterStyle>
+                                <Style TargetType="MenuFlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyoutItem x:Uid="BtnSaveCurrent" Text="#BtnSaveCurrent" 
+                                                Command="{Binding CommandSaveCurrent}" />
+                            <MenuFlyoutSubItem x:Uid="FlyoutSaveAs" Text="#FlyoutSaveAs">
+                                <MenuFlyoutItem x:Uid="BtnSaveInkFile" 
+                                                    Text="#BtnSaveInkFile"
+                                                    Command="{Binding CommandSaveAsInkFile}" />
+                                <MenuFlyoutItem x:Uid="BtnSaveGifFile"
+                                                    Text="#BtnSaveGifFile"
+                                                    Command="{Binding CommandSaveAsGifFile}" />
+                            </MenuFlyoutSubItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Uid="BtnSaveImageFile" 
+                                                Text="#BtnSaveImageFile"
+                                                Command="{Binding CommandExportInkToImage}" CommandParameter="{StaticResource InkWithTransparentBackground}"/>
+                            <MenuFlyoutItem x:Uid="BtnSaveImageFileColoredBackground" 
+                                                Text="#BtnSaveImageFileColoredBackground"
+                                                Command="{Binding CommandExportInkToImage}" CommandParameter="{StaticResource InkWithColoredBackground}"/>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar>
+        </Grid>
+
+        <!--Vertical Toolbar-->
+        <Grid Grid.Column="0" Grid.Row="2" Width="50">
+            <Slider x:Name="OpacitySlider" 
+                    IntermediateValue="1" 
+                    Maximum="100" Minimum="0" 
+                    Value="50" 
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical"
+                    IsEnabled="{Binding ElementName=ToggleImageLayer, Path=IsChecked}"
+                    Style="{StaticResource EdiSliderStyle}"
+                    Margin="0,25,0,25" />
+        </Grid>
+
+        <!--Drawing Canvas-->
+        <Grid Grid.Column="1" Grid.Row="2" 
+              x:Name="CanvasGrid" 
+              AllowDrop="True" 
+              Drop="CanvasGrid_OnDrop" 
+              DragOver="CanvasGrid_OnDragOver">
+            <ScrollViewer ZoomMode="Enabled" 
+                          x:Name="CanvasScrollViewer"
+                          MinZoomFactor="0.25"
+                          MaxZoomFactor="8"
+                          ViewChanged="CanvasScrollViewer_OnViewChanged"
+                          VerticalScrollBarVisibility="Auto" 
+                          HorizontalScrollBarVisibility="Auto">
+                <controls1:DropShadowPanel BlurRadius="8" 
+                                           Padding="10"
+                                           ShadowOpacity="0.7"
+                                           OffsetX="2"
+                                           OffsetY="2"
+                                           Color="Black"
+                                           BorderThickness="1"
+                                           BorderBrush="Black"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center">
+                    <Canvas x:Name="AmazingCanvas"
+                            DoubleTapped="AmazingCanvas_OnDoubleTapped"
+                            Height="{x:Bind Settings.DefaultCanvasHeight, Mode=OneWay}"
+                            Width="{x:Bind Settings.DefaultCanvasWidth, Mode=OneWay}"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Background="{Binding CurrentCanvasBackgroundBrush}">
+                        <Grid x:Name="CanvasBorderGrid"
+                              Canvas.Top="0"
+                              Canvas.Left="0"
+                              Height="{Binding ElementName=AmazingCanvas, Path=Height}"
+                              Width="{Binding ElementName=AmazingCanvas, Path=Width}"
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch">
+                            <developerTools:AlignmentGrid Opacity="{Binding ElementName=SldAlignmentGridOpacity, Path=Value}"
+                                                      VerticalStep="{Binding ElementName=SldAlignmentGridSize, Path=Value}"
+                                                      HorizontalStep="{Binding ElementName=SldAlignmentGridSize, Path=Value}"
+                                                      LineBrush="{Binding ElementName=AlignmentGridLineColorPicker, Path=SolidColorBrush}"
+                                                      Visibility="{Binding ElementName=BtnUseAlignmentGrid, Path=IsChecked}" />
+                            <Image x:Name="Img"
+                                   Visibility="{Binding ElementName=ToggleImageLayer, Path=IsChecked, Mode=TwoWay}"
+                                   Canvas.ZIndex="5"
+                                   Source="{Binding CurrentImageSource, Mode=OneWay}"
+                                   Opacity="{Binding ElementName=OpacitySlider, Path=Value, Converter={StaticResource ImageOpacityConverter}}">
+                            </Image>
+
+                            <InkCanvas x:Name="Ink"
+                                       Canvas.ZIndex="10"
+                                       Visibility="{Binding ElementName=ToggleInkLayer, Path=IsChecked, Mode=TwoWay}"
+                                       Height="{Binding ElementName=AmazingCanvas, Path=Height}"
+                                       Width="{Binding ElementName=AmazingCanvas, Path=Width}"
+                                       ManipulationDelta="ink_ManipulationDelta" 
+                                       ManipulationStarted="Ink_OnManipulationStarted"
+                                       ManipulationMode="All" 
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch">
+                            </InkCanvas>
+
+                            <CaptureElement Canvas.ZIndex="100" 
+                                            Visibility="Visible"
+                                            Tapped="PreviewControl_OnTapped"
+                                            Height="{Binding ElementName=AmazingCanvas, Path=Height}"
+                                            Width="{Binding ElementName=AmazingCanvas, Path=Width}"
+                                            Name="PreviewControl" 
+                                            Stretch="Uniform"/>
+                        </Grid>
+
+                        <Grid x:Name="SelectionGrid" 
+                                  BorderThickness="2" 
+                                  Canvas.ZIndex="15"
+                                  BorderBrush="Gray" 
+                                  Background="#22000000" 
+                                  Visibility="Collapsed">
+                            <Button x:Name="BtnMoveLeft"
+                                            Click="BtnMoveLeft_OnClick"
+                                            HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center" 
+                                            Style="{StaticResource IconButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE09E;" />
+                            </Button>
+
+                            <Button x:Name="BtnMoveRight"
+                                            Click="BtnMoveRight_OnClick"
+                                            HorizontalAlignment="Right" 
+                                            VerticalAlignment="Center" 
+                                            Style="{StaticResource IconButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE09F;" />
+                            </Button>
+
+                            <Button x:Name="BtnMoveTop"
+                                            Click="BtnMoveTop_OnClick"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Top" 
+                                            Style="{StaticResource IconButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE09C;" />
+                            </Button>
+
+                            <Button x:Name="BtnMoveDown"
+                                            Click="BtnMoveDown_OnClick"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Bottom" 
+                                            Style="{StaticResource IconButtonStyle}">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE09D;" />
+                            </Button>
+                        </Grid>
+
+                    </Canvas>
+                </controls1:DropShadowPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!--Status Bar-->
+        <Grid Background="{StaticResource StatusBarBackgroundColor}" 
+                    Height="26"
+                    Padding="0"
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0" VerticalAlignment="Stretch" Height="26">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </StackPanel.Resources>
+                <Button x:Name="BtnSetCanvasSize" VerticalAlignment="Stretch" Margin="0" Padding="5,0" Background="Transparent">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0" >
+                            <TextBlock Text="{Binding ElementName=Ink,Path=Width}"/>
+                            <TextBlock Text="x" />
+                            <TextBlock Text="{Binding ElementName=Ink,Path=Height}" />
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="TxtCanvasWidth"  
+                                             PlaceholderText="Width" 
+                                             extensions:TextBoxRegex.ValidationMode="Forced"
+                                             extensions:TextBoxRegex.Regex="^[1-9][0-9]*$"
+                                             Text="{x:Bind CanvasPixelWidth, Mode=TwoWay}"
+                                             BorderBrush="{Binding (extensions:TextBoxRegex.IsValid), ElementName=TxtCanvasWidth, Converter={StaticResource BoolToValidationColorConverter}}"/>
+
+                                <TextBlock Text="x" VerticalAlignment="Center" Margin="10,0" />
+
+                                <TextBox x:Name="TxtCanvasHeight"  
+                                             PlaceholderText="Height" 
+                                             extensions:TextBoxRegex.ValidationMode="Forced"
+                                             extensions:TextBoxRegex.Regex="^[1-9][0-9]*$"
+                                             Text="{x:Bind CanvasPixelHeight, Mode=TwoWay}"
+                                             BorderBrush="{Binding (extensions:TextBoxRegex.IsValid), ElementName=TxtCanvasHeight, Converter={StaticResource BoolToValidationColorConverter}}"/>
+                                <Button x:Name="BtnApplyNewCanvasSize"
+                                            x:Uid="BtnApplyNewCanvasSize" Content="#BtnApplyNewCanvasSize" 
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource ButtonRevealStyle}"
+                                            Click="BtnApplyNewCanvasSize_OnClick" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+                <controls:StatusBarSeperator Margin="5,0" />
+
+                <Button VerticalAlignment="Stretch" Padding="5,0" Background="Transparent">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE12E;" Margin="0,0,5,0" FontSize="13" />
+                        <TextBlock x:Name="TxtCurrentZoomFucktor" Text="{x:Bind CurrentZoomFucktor, Mode=OneWay}" />
+                    </StackPanel>
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyout.MenuFlyoutPresenterStyle>
+                                <Style TargetType="MenuFlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyoutItem Text="800%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="8"/>
+                            <MenuFlyoutItem Text="400%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="4"/>
+                            <MenuFlyoutItem Text="200%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="2"/>
+                            <MenuFlyoutItem Text="150%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="1.5"/>
+                            <MenuFlyoutItem Text="125%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="1.25" />
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Text="100%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="1"/>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Text="75%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="0.75"/>
+                            <MenuFlyoutItem Text="50%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="0.5"/>
+                            <MenuFlyoutItem Text="25%" Command="{x:Bind CommandZoomFromMenuItem}" CommandParameter="0.25"/>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Name="ZoomFitScreen" Text="Fit Screen" Click="ZoomFitScreen_OnClick" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+
+                <controls:StatusBarSeperator Margin="5,0" />
+
+                <TextBlock Text="DPI: " />
+                <controls:DPIIndicator />
+
+                <controls:StatusBarSeperator Margin="5,0" />
+
+                <TextBlock x:Uid="TxtTotalStrokes" Text="#TxtTotalStrokes" />
+                <TextBlock Margin="5,0,0,0" Text="{Binding TotalStrokes, Mode=OneWay}" />
+
+                <controls:StatusBarSeperator Margin="5,0" />
+
+                <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=InkTB, Path=InkDrawingAttributes.Size}" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <SolidColorBrush x:Key="ToggleButtonBackgroundChecked" Color="#CA5100" />
+                </StackPanel.Resources>
+                <Button x:Name="BtnInkReplay" x:Uid="BtnInkReplay" Style="{StaticResource StatusBarButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" Margin="0,0,5,0" FontSize="15" />
+                        <TextBlock x:Uid="BtnInkReplayContent" Text="#BtnInkReplayContent" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnStopReplay" Style="{StaticResource StatusBarButtonStyle}">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE15B;" Margin="0,0,5,0" FontSize="15"/>
+                </Button>
+                <controls:StatusBarSeperator Margin="5,0" />
+                <ToggleButton x:Uid="BtnRecShape" Style="{StaticResource StatusBarToggleButtonStyle}" IsChecked="{Binding IsInkToShapeOn, Mode=TwoWay}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE18A;" Margin="0,0,5,0" FontSize="15"/>
+                        <TextBlock x:Uid="BtnRecShapeLabel" Text="#BtnRecShapeLabel" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ToggleButton>
+                <controls:StatusBarSeperator Margin="5,0" />
+                <Button x:Uid="BtnAlignmentGrid" Style="{StaticResource StatusBarButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80A;" Margin="0,0,5,0" FontSize="15" />
+                        <TextBlock x:Uid="BtnAlignmentGridLabel" Text="#BtnAlignmentGridLabel" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Button.Flyout>
+                        <Flyout>
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                                    <Setter Property="IsTabStop" Value="True"/>
+                                    <Setter Property="TabNavigation" Value="Cycle"/>
+                                    <Setter Property="MinWidth" Value="640" />
+                                    <Setter Property="RequestedTheme" Value="Dark" />
+                                    <Setter Property="Padding" Value="10,2,2,2" />
+                                    <Setter Property="BorderThickness" Value="0.5" />
+                                    <Setter Property="BorderBrush" Value="#99FFFFFF" />
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <c4Fcontrols:ColorHexagonPicker x:Name="AlignmentGridLineColorPicker" 
+                                                                IsEnabled="{Binding ElementName=BtnUseAlignmentGrid, Path=IsChecked}" 
+                                                                Color="Black" Margin="0,10,0,10" />
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <StackPanel>
+                                        <Slider Header="Grid Size"
+                                            x:Name="SldAlignmentGridSize"
+                                            Margin="10,0,10,0"
+                                            StepFrequency="2"
+                                            VerticalAlignment="Bottom"
+                                            Style="{StaticResource EdiSliderStyle}" 
+                                            IsEnabled="{Binding ElementName=BtnUseAlignmentGrid, Path=IsChecked}" 
+                                            Value="32"
+                                            Minimum="16" 
+                                            Maximum="128" />
+                                        <Slider Header="Opacity"
+                                            x:Name="SldAlignmentGridOpacity"
+                                            Margin="10,0,10,0"
+                                            StepFrequency="0.1"
+                                            VerticalAlignment="Bottom"
+                                            Style="{StaticResource EdiSliderStyle}" 
+                                            IsEnabled="{Binding ElementName=BtnUseAlignmentGrid, Path=IsChecked}"
+                                            Value="0.2"
+                                            Minimum="0.1"
+                                            Maximum="1" />
+                                    </StackPanel>
+                                </Grid>
+                                <ToggleButton Grid.Row="2" 
+                                          Margin="0,0,0,10"
+                                          HorizontalAlignment="Center"
+                                          x:Name="BtnUseAlignmentGrid"
+                                          IsChecked="False"
+                                          x:Uid="BtnUseAlignmentGrid"
+                                          Style="{StaticResource ToggleButtonRevealStyle}"
+                                          Content="#RES" />
+                            </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <controls:StatusBarSeperator Margin="5,0" />
+                <Button x:Name="BtnBackgroundColor" x:Uid="BtnBackgroundColor" 
+                          Style="{StaticResource StatusBarButtonStyle}" 
+                          Click="BtnBackgroundColor_OnClick">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE790;" Margin="0,0,5,0" FontSize="15" />
+                        <TextBlock x:Uid="BtnBackgroundColorLabel" Text="#BtnBackgroundColorLabel" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <controls:StatusBarSeperator Margin="5,0" />
+                <Button x:Uid="BtnImageStretch" Style="{StaticResource StatusBarButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2B2;" FontSize="15" Margin="0,0,5,0" />
+                        <TextBlock Text="{Binding ImageResolution}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyout.MenuFlyoutPresenterStyle>
+                                <Style TargetType="MenuFlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" />
+                                </Style>
+                            </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyoutItem x:Name="ImageStretchMenuItemNone" 
+                                        Click="ImageStretchMenuItemNone_OnClick"
+                                        x:Uid="ImageStretchMenuItemNone" 
+                                        Text="#ImageStretchMenuItemNone" />
+                            <MenuFlyoutItem x:Name="ImageStretchMenuItemFill" 
+                                        Click="ImageStretchMenuItemFill_OnClick"
+                                        x:Uid="ImageStretchMenuItemFill" 
+                                        Text="#ImageStretchMenuItemFill" />
+                            <MenuFlyoutItem x:Name="ImageStretchMenuItemUniform" 
+                                        Click="ImageStretchMenuItemUniform_OnClick"
+                                        x:Uid="ImageStretchMenuItemUniform"
+                                        Text="#ImageStretchMenuItemUniform" />
+                            <MenuFlyoutItem x:Name="ImageStretchMenuItemUniformToFill" 
+                                        Click="ImageStretchMenuItemUniformToFill_OnClick"
+                                        x:Uid="ImageStretchMenuItemUniformToFill"
+                                        Text="#ImageStretchMenuItemUniformToFill" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                <controls:StatusBarSeperator Margin="5,0" />
+                <ToggleButton x:Uid="BtnLockCanvas" 
+                                IsChecked="{Binding IsLockInkManipulationMode, Mode=TwoWay}" 
+                                Style="{StaticResource StatusBarToggleButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72E;" FontSize="15" Margin="0,0,5,0" />
+                        <TextBlock x:Uid="BtnLockCanvasLabel" Text="#BtnLockCanvasLabel" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ToggleButton>
+            </StackPanel>
+        </Grid>
+
+        <Canvas x:Name="PrintCanvas" Opacity="0" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" />
+
+        <Border x:Name="BorderMessage" 
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}" 
+                Opacity="0"
+                Margin="0,90,0,0" Padding="16,7" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock x:Name="TxtMessage" Foreground="White" />
+        </Border>
+
+        <ContentDialog Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2"
+                       x:Name="DigAdvColor" d:IsHidden="True"
+                       x:Uid="DigAdvColor" 
+                       PrimaryButtonText="#RES" 
+                       IsPrimaryButtonEnabled="True" 
+                       IsSecondaryButtonEnabled="True" 
+                       SecondaryButtonText="#RES"
+                       Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" 
+                       PrimaryButtonClick="DigAdvColor_OnPrimaryButtonClick"
+                       SecondaryButtonClick="DigAdvColor_OnSecondaryButtonClick"
+                       BorderThickness="2">
+            <ContentDialog.Content>
+                <Grid Margin="0,20,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <c4Fcontrols:ColorPicker x:Name="PlainColorPicker" 
+                                             Height="400" Width="500" 
+                                             Color="{Binding CustomOverrideColor, Mode=OneWay}" />
+                    <Grid Grid.Row="1" Background="{ThemeResource ButtonBackgroundThemeBrush}" Margin="0,10,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="0,0,20,0" />
+                            </Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="0,5" />
+                            </Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Margin" Value="10,0,0,0" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <TextBlock Text="RGB" Grid.Row="0" Grid.Column="0"  />
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="PlainPicker_TextRGB" MaxLength="11"
+                                 Text="{Binding ElementName=PlainColorPicker, Path=Color, Mode=TwoWay, Converter={StaticResource ColorToRGBStringConverter}}"
+                                 />
+                        <Button Grid.Row="0" Grid.Column="2" Click="CopyRGB_Plain_Click">
+                            <SymbolIcon Symbol="Copy"/>
+                        </Button>
+
+                        <TextBlock Text="HEX" Grid.Row="1" Grid.Column="0"  />
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="PlainPicker_TextHEX" MaxLength="7"
+                                 Text="{Binding ElementName=PlainColorPicker, Path=Color, Mode=TwoWay, Converter={StaticResource ColorToHexStringConverter}}"/>
+                        <Button Grid.Row="1" Grid.Column="2" Click="CopyHEX_Plain_Click">
+                            <SymbolIcon Symbol="Copy"/>
+                        </Button>
+
+                        <TextBlock Text="CMYK" Grid.Row="2" Grid.Column="0"  />
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="PlainPicker_TextCMYK" MaxLength="7"
+                                 Text="{Binding ElementName=PlainColorPicker, Path=Color, Mode=TwoWay, Converter={StaticResource ColorToCMYKStringConverter}}"/>
+                        <Button Grid.Row="2" Grid.Column="2" Click="CopyCMYK_Plain_Click" >
+                            <SymbolIcon Symbol="Copy"/>
+                        </Button>
+                    </Grid>
+
+                    <CheckBox x:Uid="ChkLockColor" 
+                              x:Name="ChkLockColor" 
+                              Content="#ChkLockColor" 
+                              Grid.Row="2" 
+                              Margin="60,10,0,0" IsChecked="{Binding IsLockColor,Mode=TwoWay}" />
+                </Grid>
+            </ContentDialog.Content>
+        </ContentDialog>
+
+        <ContentDialog Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3"
+                       x:Name="DigCvsBgColor" d:IsHidden="True"
+                       x:Uid="DigCvsBgColor" 
+                       Title="Canvas Background Color"
+                       PrimaryButtonText="OK" 
+                       IsPrimaryButtonEnabled="True" 
+                       IsSecondaryButtonEnabled="True" 
+                       SecondaryButtonText="Cancel"
+                       Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}" 
+                       PrimaryButtonClick="DigCvsBgColor_OnPrimaryButtonClick"
+                       BorderThickness="2">
+            <ContentDialog.Content>
+                <Grid Margin="0,20,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <c4Fcontrols:ColorPicker x:Name="PlainColorPickerCvsBgColor" Color="#FFF" Height="400" Width="500" />
+                </Grid>
+            </ContentDialog.Content>
+        </ContentDialog>
+
+        <ContentDialog x:Name="DigSampleGallery" 
+                       Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" 
+                       d:IsHidden="True"
+                       x:Uid="DigSampleGallery"
+                       Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
+                       IsPrimaryButtonEnabled="True" 
+                       IsSecondaryButtonEnabled="True"
+                       PrimaryButtonCommand="{Binding CommandApplySampleImageSelection}">
+            <Grid Margin="0,20,0,0" Width="600">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <GridView x:Name="GrdSampleImgs" SelectionMode="Single" 
+                          ItemsSource="{Binding SampleImages}" 
+                          SelectedItem="{Binding SelectedSampleImage,Mode=TwoWay}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}" Width="240" />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+                <TextBlock Grid.Row="1" Margin="0,10,0,0" Foreground="#666" Text="Credits: Sample Images by Microsoft Japan" FontSize="13" />
+            </Grid>
+        </ContentDialog>
+
+        <controls1:Loading x:Name="LoadingIndicator" 
+                           d:IsHidden="True"
+                           IsLoading="{Binding IsBlockingBusy}"
+                           Grid.Row="0" Grid.RowSpan="4"
+                           Grid.Column="0" Grid.ColumnSpan="2"
+                           HorizontalContentAlignment="Center" 
+                           VerticalContentAlignment="Center"
+                           Background="Black" Opacity="0.5">
+            <StackPanel Orientation="Horizontal" Padding="12">
+                <ProgressRing IsActive="True" Margin="0,0,12,0" Foreground="White" />
+                <TextBlock x:Uid="TxtProcessing" Text="#TxtProcessing" VerticalAlignment="Center" />
+            </StackPanel>
+        </controls1:Loading>
+
+        <ContentDialog x:Name="DigSaveConfirm" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" d:IsHidden="True"
+                       Background="{ThemeResource SystemControlChromeHighAcrylicElementMediumBrush}"
+                       Title="Do you want to save your work?" 
+                       PrimaryButtonText="Save" 
+                       SecondaryButtonText="Don't Save"
+                       CloseButtonText="Cancel">
+            <TextBlock Text="There are unsaved changes." />
+        </ContentDialog>
+
+        <controls1:InAppNotification x:Name="MessageNotification" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" />
+    </Grid>
+</Page>

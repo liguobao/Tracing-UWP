@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>描图</value>
+  </data>
+  <data name="BlowUp" xml:space="preserve">
+    <value>卧槽爆掉了</value>
+  </data>
+  <data name="BtnChoosePic.Label" xml:space="preserve">
+    <value>打开背景图</value>
+  </data>
+  <data name="BtnClearPic.Text" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="BtnOpenImageFile.Text" xml:space="preserve">
+    <value>打开图片文件</value>
+  </data>
+  <data name="BtnOpenInkFile.Text" xml:space="preserve">
+    <value>打开电子墨迹文件(.ink)</value>
+  </data>
+  <data name="BtnOpenSampleImage.Text" xml:space="preserve">
+    <value>示例图片...</value>
+  </data>
+  <data name="BtnReview.Content" xml:space="preserve">
+    <value>评价</value>
+  </data>
+  <data name="BtnSaveImageFile.Text" xml:space="preserve">
+    <value>保存墨迹为图片 (透明背景)</value>
+  </data>
+  <data name="BtnSaveImageFileColoredBackground.Text" xml:space="preserve">
+    <value>保存墨迹为图片 (带背景色)</value>
+  </data>
+  <data name="BtnSaveInkFile.Text" xml:space="preserve">
+    <value>保存电子墨迹文件 (.ink)</value>
+  </data>
+  <data name="DigSettings.Title" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="HolyCowSupportDrag" xml:space="preserve">
+    <value>我靠，居然支持拖拽文件！</value>
+  </data>
+  <data name="LnkVisitBlog.Content" xml:space="preserve">
+    <value>作者博客</value>
+  </data>
+  <data name="MyTracingWork" xml:space="preserve">
+    <value>我的《描图》作品</value>
+  </data>
+  <data name="NoInk" xml:space="preserve">
+    <value>没有墨迹</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>已保存墨迹</value>
+  </data>
+  <data name="ToggleInkBackgroundTransparent.OffContent" xml:space="preserve">
+    <value>白色背景</value>
+  </data>
+  <data name="ToggleInkBackgroundTransparent.OnContent" xml:space="preserve">
+    <value>透明背景</value>
+  </data>
+  <data name="ToggleMouse.OffContent" xml:space="preserve">
+    <value>禁用鼠标绘图</value>
+  </data>
+  <data name="ToggleMouse.OnContent" xml:space="preserve">
+    <value>启用鼠标绘图</value>
+  </data>
+  <data name="TogglePressure.OffContent" xml:space="preserve">
+    <value>禁用笔尖压力感应</value>
+  </data>
+  <data name="TogglePressure.OnContent" xml:space="preserve">
+    <value>启用笔尖压力感应</value>
+  </data>
+  <data name="ToggleTouch.OffContent" xml:space="preserve">
+    <value>禁用触控绘图</value>
+  </data>
+  <data name="ToggleTouch.OnContent" xml:space="preserve">
+    <value>启用触控绘图</value>
+  </data>
+  <data name="TxtAboutHeader.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="TxtAboutText.Text" xml:space="preserve">
+    <value>该应用让你能够选择一张图片并用触控笔、触屏或鼠标描绘该图片，调整背景图透明度预览，并保存仅你的笔迹，看上去就像是你画的！</value>
+  </data>
+  <data name="TxtAboutTitle.Text" xml:space="preserve">
+    <value>描图 (Windows 10创意者更新)</value>
+  </data>
+  <data name="TxtDisplay.Text" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="TxtMessage.Text" xml:space="preserve">
+    <value>选择一张图片并开始描绘吧</value>
+  </data>
+  <data name="TxtMorePen.Text" xml:space="preserve">
+    <value>更多触控笔设置，请转到Windows设置</value>
+  </data>
+  <data name="TxtOperations.Text" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="TxtPenSettings.Text" xml:space="preserve">
+    <value>触控笔设置</value>
+  </data>
+  <data name="TxtRequireRestart.Text" xml:space="preserve">
+    <value>要求重新启动应用以应用设置</value>
+  </data>
+  <data name="TxtSettingsHeader.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="UsePrimaryLanguageOverride.OffContent" xml:space="preserve">
+    <value>使用系统语言</value>
+  </data>
+  <data name="UsePrimaryLanguageOverride.OnContent" xml:space="preserve">
+    <value>使用自定义语言</value>
+  </data>
+  <data name="TxtImageSize.Text" xml:space="preserve">
+    <value>图片大小</value>
+  </data>
+  <data name="BtnResetSize.Label" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Touch_Disabled" xml:space="preserve">
+    <value>触控绘图已禁用</value>
+  </data>
+  <data name="Touch_Enabled" xml:space="preserve">
+    <value>触控绘图已启用</value>
+  </data>
+  <data name="Mouse_Enabled" xml:space="preserve">
+    <value>启用鼠标绘图</value>
+  </data>
+  <data name="Mouse_Disabled" xml:space="preserve">
+    <value>禁用鼠标绘图</value>
+  </data>
+  <data name="MainPage_ToggleFullScreenModeButton_Click_Exit_Full_Screen" xml:space="preserve">
+    <value>退出全屏</value>
+  </data>
+  <data name="BtnSaveGifFile.Text" xml:space="preserve">
+    <value>内嵌SIF的GIF图片(.GIF)</value>
+  </data>
+  <data name="FlyoutSaveAs.Text" xml:space="preserve">
+    <value>另存为...</value>
+  </data>
+  <data name="BtnOpenGifFile.Text" xml:space="preserve">
+    <value>打开GIF文件 (内嵌ISF)</value>
+  </data>
+  <data name="FlyoutOpenInk.Text" xml:space="preserve">
+    <value>打开墨迹文件</value>
+  </data>
+  <data name="MainPage_DtmOnDataRequested_ShareTitle" xml:space="preserve">
+    <value>我的作品</value>
+  </data>
+  <data name="TxtColorLocked.Text" xml:space="preserve">
+    <value>颜色已锁定</value>
+  </data>
+  <data name="ChkLockColor.Content" xml:space="preserve">
+    <value>总是使用该颜色并隐藏默认调色板</value>
+  </data>
+  <data name="Status-FullScreen" xml:space="preserve">
+    <value>全屏</value>
+  </data>
+  <data name="Status-Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="DigSampleGallery.Title" xml:space="preserve">
+    <value>样例图库</value>
+  </data>
+  <data name="DigAdvColor.Title" xml:space="preserve">
+    <value>高级选色器</value>
+  </data>
+  <data name="DigSampleGallery.SecondaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DigSampleGallery.PrimaryButtonText" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="MessageDialogTitle-Error" xml:space="preserve">
+    <value>大爆炸</value>
+  </data>
+  <data name="BtnSave.Label" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Status.ImageSaved" xml:space="preserve">
+    <value>已保存图片</value>
+  </data>
+  <data name="SaveImageFileNamePrefix" xml:space="preserve">
+    <value>Tracing_</value>
+  </data>
+  <data name="BtnLockCanvasLabel.Text" xml:space="preserve">
+    <value>锁定墨迹图层移动</value>
+  </data>
+  <data name="BtnPenSettings.Content" xml:space="preserve">
+    <value>触控笔Windows墨迹设置</value>
+  </data>
+  <data name="ToggleVibrate.OffContent" xml:space="preserve">
+    <value>禁用震动反馈</value>
+  </data>
+  <data name="ToggleVibrate.OnContent" xml:space="preserve">
+    <value>启用震动反馈</value>
+  </data>
+  <data name="TxtSurfaceDial.Text" xml:space="preserve">
+    <value>Surface Dial</value>
+  </data>
+  <data name="TxtSurfaceDialSettingsDescription.Text" xml:space="preserve">
+    <value>更多轮盘设备设置，请转到Windows设置</value>
+  </data>
+  <data name="BtnWheelSettings.Content" xml:space="preserve">
+    <value>轮盘设置</value>
+  </data>
+  <data name="AboutAppTitle.Text" xml:space="preserve">
+    <value>描图 (Windows 10 创意者版)</value>
+  </data>
+  <data name="TxtLanguage.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="BtnBackgroundColorLabel.Text" xml:space="preserve">
+    <value>画布背景色</value>
+  </data>
+  <data name="DigAdvColor.PrimaryButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="DigAdvColor.SecondaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="BtnRecShapeLabel.Text" xml:space="preserve">
+    <value>墨迹自动转形状 (尝鲜功能)</value>
+  </data>
+  <data name="BtnUseAlignmentGrid.Content" xml:space="preserve">
+    <value>启用对齐线参考网格</value>
+  </data>
+  <data name="WelcomeFlipLetStart.Text" xml:space="preserve">
+    <value>尽情使用吧！</value>
+  </data>
+  <data name="WelcomeFlipMainSubTitle.Text" xml:space="preserve">
+    <value>为 Windows 10 创意者更新 打造</value>
+  </data>
+  <data name="WelcomeFlipMainTitle.Text" xml:space="preserve">
+    <value>欢迎使用《描图》</value>
+  </data>
+  <data name="WelcomeFlipStep1Desc.Text" xml:space="preserve">
+    <value>你可以选择自己的图片，示例图片，或者之前保存过的墨迹文件</value>
+  </data>
+  <data name="WelcomeFlipStep1Title.Text" xml:space="preserve">
+    <value>第一步： 选择一张背景图</value>
+  </data>
+  <data name="WelcomeFlipStep2Desc.Text" xml:space="preserve">
+    <value>使用你的触控笔，鼠标或触屏描绘图片，你也可以使用工具栏上所有的高级工具帮助你绘图</value>
+  </data>
+  <data name="WelcomeFlipStep2Title.Text" xml:space="preserve">
+    <value>第二步： 描绘图片</value>
+  </data>
+  <data name="WelcomeFlipStep3Desc.Text" xml:space="preserve">
+    <value>调节透明度滑块预览你的作品</value>
+  </data>
+  <data name="WelcomeFlipStep3Title.Text" xml:space="preserve">
+    <value>第三步： 预览作品</value>
+  </data>
+  <data name="WelcomeFlipStep4Desc.Text" xml:space="preserve">
+    <value>将你的墨迹保存为你想要的格式</value>
+  </data>
+  <data name="WelcomeFlipStep4Title.Text" xml:space="preserve">
+    <value>第四步： 保存您的墨迹</value>
+  </data>
+  <data name="WelcomeFlipStep5Desc.Text" xml:space="preserve">
+    <value>恭喜，现在你可以和你朋友说，这是你自己画的图了！</value>
+  </data>
+  <data name="WelcomeFlipStep55Title.Text" xml:space="preserve">
+    <value>没有笔或触屏？</value>
+  </data>
+  <data name="WelcomeFlipStep55Desc.Text" xml:space="preserve">
+    <value>在这里启用触控或鼠标绘图，如果你的设备没有配笔</value>
+  </data>
+  <data name="WelcomeFlipStep5Title.Text" xml:space="preserve">
+    <value>完成！</value>
+  </data>
+  <data name="WelcomeFlipSwipeLeft0.Text" xml:space="preserve">
+    <value>向左滑动开始向导</value>
+  </data>
+  <data name="WelcomeFlipSwipeLeftGeneric.Text" xml:space="preserve">
+    <value>向左滑动查看下一步</value>
+  </data>
+  <data name="WelcomeFlipWalkThrough.Text" xml:space="preserve">
+    <value>我们会教你最基本的使用方法</value>
+  </data>
+  <data name="BtnInkReplayContent.Text" xml:space="preserve">
+    <value>墨迹回放</value>
+  </data>
+  <data name="TxtDefaultSize.Text" xml:space="preserve">
+    <value>默认尺寸</value>
+  </data>
+  <data name="TxtCanvasSettings.Text" xml:space="preserve">
+    <value>画布设置</value>
+  </data>
+  <data name="SliderDefaultCanvasWidth.Header" xml:space="preserve">
+    <value>宽度（像素）</value>
+  </data>
+  <data name="SliderDefaultCanvasHeight.Header" xml:space="preserve">
+    <value>高度（像素）</value>
+  </data>
+  <data name="BtnResetDefaultSize.Content" xml:space="preserve">
+    <value>适配屏幕大小</value>
+  </data>
+  <data name="BtnAlignmentGridLabel.Text" xml:space="preserve">
+    <value>参考网格</value>
+  </data>
+  <data name="ImageStretchMenuItemNone.Text" xml:space="preserve">
+    <value>默认 (原始宽高比)</value>
+  </data>
+  <data name="ImageStretchMenuItemFill.Text" xml:space="preserve">
+    <value>填满 (拉伸宽高比)</value>
+  </data>
+  <data name="ImageStretchMenuItemUniform.Text" xml:space="preserve">
+    <value>平铺 (保持宽高比)</value>
+  </data>
+  <data name="ImageStretchMenuItemUniformToFill.Text" xml:space="preserve">
+    <value>平铺以填满 (裁剪图片并保持宽高比)</value>
+  </data>
+  <data name="TxtUnsaved.Text" xml:space="preserve">
+    <value>未保存</value>
+  </data>
+  <data name="BtnClearAll.Label" xml:space="preserve">
+    <value>清除全部</value>
+  </data>
+  <data name="BtnSaveCurrent.Text" xml:space="preserve">
+    <value>保存  (Ctrl + S)</value>
+  </data>
+  <data name="BtnClearAllCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="BtnClearAllConfirm" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="ClearAllWarning" xml:space="preserve">
+    <value>确认清空图片和墨迹吗？</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="TxtTotalStrokes.Text" xml:space="preserve">
+    <value>笔画数:</value>
+  </data>
+  <data name="BtnRotateLeft.Text" xml:space="preserve">
+    <value>向左旋转</value>
+  </data>
+  <data name="BtnRotateRight.Text" xml:space="preserve">
+    <value>向右旋转</value>
+  </data>
+  <data name="FlyoutImageRotation.Text" xml:space="preserve">
+    <value>旋转图片</value>
+  </data>
+  <data name="ShowEraseAllMenuButton.OffContent" xml:space="preserve">
+    <value>橡皮擦按钮下不显示清空全部墨迹菜单</value>
+  </data>
+  <data name="ShowEraseAllMenuButton.OnContent" xml:space="preserve">
+    <value>在橡皮擦按钮下显示清空全部墨迹菜单</value>
+  </data>
+  <data name="ToggleTilt.OffContent" xml:space="preserve">
+    <value>禁用笔尖倾斜 (铅笔工具)</value>
+  </data>
+  <data name="ToggleTilt.OnContent" xml:space="preserve">
+    <value>启用铅笔工具的笔尖倾斜作图 (要求硬件支持)</value>
+  </data>
+  <data name="ToggleEnableDial.OffContent" xml:space="preserve">
+    <value>已禁用Surface Dial</value>
+  </data>
+  <data name="ToggleEnableDial.OnContent" xml:space="preserve">
+    <value>已启用Surface Dial</value>
+  </data>
+  <data name="ShowShapeRecognitionButton.OnContent" xml:space="preserve">
+    <value>显示几何图形识别按钮</value>
+  </data>
+  <data name="ShowShapeRecognitionButton.OffContent" xml:space="preserve">
+    <value>隐藏几何图形识别按钮</value>
+  </data>
+  <data name="LblCustomizeStatusBar.Text" xml:space="preserve">
+    <value>自定义状态栏</value>
+  </data>
+  <data name="LblAdvancedOptions.Text" xml:space="preserve">
+    <value>高级选项</value>
+  </data>
+  <data name="LblCustomizeToolBar.Text" xml:space="preserve">
+    <value>自定义工具栏</value>
+  </data>
+  <data name="BtnApplyNewCanvasSize.Content" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="TxtImg.Text" xml:space="preserve">
+    <value>图像大小: </value>
+  </data>
+  <data name="InkReplay-Save-Your-Work" xml:space="preserve">
+    <value>请保存你的工作</value>
+  </data>
+  <data name="ToggleCurve.OffContent" xml:space="preserve">
+    <value>不使用贝塞尔曲线自动平滑墨迹，我就要全手工控制</value>
+  </data>
+  <data name="ToggleCurve.OnContent" xml:space="preserve">
+    <value>使用贝塞尔曲线自动平滑墨迹</value>
+  </data>
+  <data name="ToggleShowProtractor.OffContent" xml:space="preserve">
+    <value>隐藏量角器菜单项</value>
+  </data>
+  <data name="ToggleShowProtractor.OnContent" xml:space="preserve">
+    <value>显示量角器菜单项</value>
+  </data>
+  <data name="TouchZoomDisabled" xml:space="preserve">
+    <value>已退出画布缩放模式，重新启用墨迹绘制。</value>
+  </data>
+  <data name="TouchZoomEnabled" xml:space="preserve">
+    <value>画布缩放模式，已禁用墨迹绘制防止误触。(再次双击退出画布缩放模式)</value>
+  </data>
+  <data name="TouchZoomWarning" xml:space="preserve">
+    <value>双击画布启用画布缩放模式，禁用墨迹锁定（右下角）启用墨迹缩放模式。</value>
+  </data>
+  <data name="BtnTakePicture.Text" xml:space="preserve">
+    <value>拍照作图</value>
+  </data>
+  <data name="BtnRestart.Content" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="BtnLayers.Label" xml:space="preserve">
+    <value>图层</value>
+  </data>
+  <data name="ToggleImageLayer.Text" xml:space="preserve">
+    <value>背景图</value>
+  </data>
+  <data name="ToggleInkLayer.Text" xml:space="preserve">
+    <value>墨迹</value>
+  </data>
+</root>

@@ -1,0 +1,34 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="MainColor">#454545</Color>
+    <Color x:Key="AltColor">#282828</Color>
+    <SolidColorBrush x:Key="MainUIColor" Color="{StaticResource MainColor}" />
+    <SolidColorBrush x:Key="MainUIAltColor" Color="{StaticResource AltColor}" />
+    <SolidColorBrush x:Key="StatusBarBackgroundColor" Color="#66007ACC" />
+    <SolidColorBrush x:Key="InkToolbarButtonBackgroundThemeBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="InkToolbarButtonSelectedBackgroundThemeBrush" Color="#CCFFFFFF" />
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <AcrylicBrush x:Key="TracingAcrylicBrush"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="{StaticResource MainColor}"
+                          TintOpacity="0.7"
+                          FallbackColor="#454545"/>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="TracingAcrylicBrush"
+                             Color="{ThemeResource SystemColorWindowColor}"/>
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Light">
+            <AcrylicBrush x:Key="TracingAcrylicBrush"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="{StaticResource MainColor}"
+                          TintOpacity="0.7"
+                          FallbackColor="#454545"/>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

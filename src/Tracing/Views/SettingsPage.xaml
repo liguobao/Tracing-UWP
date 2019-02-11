@@ -1,0 +1,278 @@
+﻿<Page
+    x:Class="Tracing.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="using:Tracing.Core"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:configuration="using:Tracing.Configuration"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core1="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:converters="using:Tracing.Core.Converters"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Settings}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <configuration:AppSettings x:Key="AppSettings" />
+        <converters:BoolToValidationColorConverter x:Key="BoolToValidationColorConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="1" 
+                 HorizontalAlignment="Right" 
+                 VerticalAlignment="Bottom" MaxHeight="500">
+            <FontIcon 
+                FontFamily="Segoe MDL2 Assets" 
+                Glyph="&#xE115;" 
+                Opacity="0.1" />
+        </Viewbox>
+
+        <Grid Grid.Row="0" x:Name="GrdTitle" Background="Transparent">
+            <TextBlock Grid.Column="0" x:Uid="AboutAppTitle" Text="#RES" FontSize="12" Margin="60,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Grid>
+
+        <ScrollViewer Padding="15" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <RelativePanel BorderThickness="0,0,1,0" BorderBrush="{StaticResource SystemControlBackgroundChromeMediumLowBrush}" Padding="0,0,20,0" Margin="0,0,20,0">
+                    <Border x:Name="SecPenSettings" Margin="0,0,0,40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="128" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="#0072BC" Width="96" Height="96" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    CornerRadius="10" 
+                                    Grid.Column="0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF15;" FontSize="64" />
+                            </Border>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Uid="TxtPenSettings"  Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" Text="#TxtPenSettings" />
+                                <!--<Image Source="/Assets/pen.png" HorizontalAlignment="Left" Width="384" />-->
+                                <ToggleSwitch x:Name="TogglePressure" 
+                                              x:Uid="TogglePressure" 
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=IsPressureEnabled, Mode=TwoWay}" 
+                                              OnContent="#TogglePressure" 
+                                              OffContent="#TogglePressure" />
+                                <ToggleSwitch x:Name="ToggleTilt" 
+                                              x:Uid="ToggleTilt" 
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=EnablePenTilt, Mode=TwoWay}" 
+                                              OnContent="#ToggleTilt" 
+                                              OffContent="#ToggleTilt" />
+                                <ToggleSwitch x:Name="ToggleCurve" 
+                                              x:Uid="ToggleCurve" 
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=FitToCurve, Mode=TwoWay}" 
+                                              OnContent="#ToggleCurve" 
+                                              OffContent="#ToggleCurve" />
+                                <TextBlock TextWrapping="Wrap" 
+                                           Foreground="#888" 
+                                           MaxWidth="400" 
+                                           Margin="0,0,0,10"
+                                           Text="Using Bézier curve can automatically smooth your ink. If you want total manual control over your ink, you can turn it off, but your ink won't be smoothed by the computer." />
+                                <TextBlock x:Uid="TxtMorePen" Text="#TxtMorePen"
+                                           TextWrapping="Wrap" Foreground="#888" />
+                                <Button x:Name="BtnPenSettings" x:Uid="BtnPenSettings" Content="#BtnPenSettings" Margin="0,10,0,0" Command="{Binding CommandPenSettings}" Style="{StaticResource ButtonRevealStyle}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Border x:Name="SecDialSettings" RelativePanel.Below="SecPenSettings" Margin="0,0,0,40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="128" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Background="Green" Width="96" Height="96" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    CornerRadius="10" 
+                                    Grid.Column="0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEE94;" FontSize="64" />
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Name="TxtSurfaceDial" x:Uid="TxtSurfaceDial" Style="{StaticResource TitleTextBlockStyle}" Text="#TxtSurfaceDial" />
+                                <ToggleSwitch x:Name="ToggleEnableDial" 
+                                              x:Uid="ToggleEnableDial" 
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableSurfaceDial, Mode=TwoWay}" 
+                                />
+                                <ToggleSwitch x:Name="ToggleVibrate" 
+                                              x:Uid="ToggleVibrate" 
+                                              IsEnabled="{Binding ElementName=ToggleEnableDial, Path=IsOn}"
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=EnableVibrateForSurfaceDial, Mode=TwoWay}" 
+                                />
+                                <TextBlock x:Uid="TxtSurfaceDialSettingsDescription"
+                                           TextWrapping="Wrap" Foreground="#888" Text="#TxtSurfaceDialSettingsDescription" />
+                                <Button x:Name="BtnWheelSettings" x:Uid="BtnWheelSettings" Content="#BtnWheelSettings" Margin="0,10,0,0" Command="{Binding CommandWheelSettings}" Style="{StaticResource ButtonRevealStyle}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Border x:Name="SecCanavsSettings" RelativePanel.Below="SecDialSettings" Margin="0,0,0,40">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="128" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Background="DarkOrange" Width="96" Height="96" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    CornerRadius="10" 
+                                    Grid.Column="0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE932;" FontSize="64" />
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Name="TxtCanvasSettings" x:Uid="TxtCanvasSettings" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,10" Text="#TxtCanvasSettings" />
+
+                                <TextBlock x:Name="TxtDefaultSize" x:Uid="TxtDefaultSize" Text="#TxtDefaultSize" FontWeight="Bold" Margin="0,0,0,5" />
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox x:Name="TxtCanvasWidth"  
+                                             PlaceholderText="Width" 
+                                             extensions:TextBoxRegex.ValidationMode="Forced"
+                                             extensions:TextBoxRegex.Regex="^[1-9][0-9]*$"
+                                             Text="{Binding CanvasPixelWidth, Mode=TwoWay}"
+                                             BorderBrush="{Binding (extensions:TextBoxRegex.IsValid), ElementName=TxtCanvasWidth, Converter={StaticResource BoolToValidationColorConverter}}"/>
+
+                                    <TextBlock Text="x" VerticalAlignment="Center" Margin="10,0" />
+
+                                    <TextBox x:Name="TxtCanvasHeight"  
+                                             PlaceholderText="Height" 
+                                             extensions:TextBoxRegex.ValidationMode="Forced"
+                                             extensions:TextBoxRegex.Regex="^[1-9][0-9]*$"
+                                             Text="{Binding CanvasPixelHeight, Mode=TwoWay}"
+                                             BorderBrush="{Binding (extensions:TextBoxRegex.IsValid), ElementName=TxtCanvasHeight, Converter={StaticResource BoolToValidationColorConverter}}"/>
+                                </StackPanel>
+                                
+                                <TextBlock x:Uid="TxtRequireRestart" Margin="0,5,0,0" Foreground="#CCC" Text="#TxtRequireRestart" />
+                                <Button x:Name="BtnResetDefaultSize" x:Uid="BtnResetDefaultSize" Content="#BtnResetDefaultSize" Command="{Binding CommandResetDefaultCanvasSize}" Style="{StaticResource ButtonRevealStyle}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Border x:Name="SecLanguageSettings" RelativePanel.Below="SecCanavsSettings" Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="128" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Background="Red" Width="96" Height="96" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    CornerRadius="10" 
+                                    Grid.Column="0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C1;" FontSize="64" />
+                            </Border>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Name="TxtLanguage" x:Uid="TxtLanguage" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,0" Text="#TxtLanguage" />
+                                <ToggleSwitch x:Name="UsePrimaryLanguageOverride" 
+                                              x:Uid="UsePrimaryLanguageOverride" 
+                                              IsOn="{Binding Source={StaticResource AppSettings}, Path=UsePrimaryLanguageOverride, Mode=TwoWay}" 
+                                              OnContent="#UsePrimaryLanguageOverride" 
+                                              OffContent="#UsePrimaryLanguageOverride" />
+
+                                <ComboBox x:Name="CmbLanguage" 
+                                          ItemsSource="{Binding Languages}" 
+                                          DisplayMemberPath="DisplayName" 
+                                          SelectedValuePath="LanguageCode" 
+                                          SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" 
+                                          IsEnabled="{Binding Source={StaticResource AppSettings}, Path=UsePrimaryLanguageOverride}" />
+
+                                <TextBlock x:Uid="TxtRequireRestart" Margin="0,5,0,0" Foreground="#CCC" Text="#TxtRequireRestart" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </RelativePanel>
+
+                <RelativePanel Grid.Column="1">
+                    <StackPanel>
+                        <TextBlock x:Uid="LblAdvancedOptions" Text="#LblAdvancedOptions" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,20" />
+
+                        <TextBlock x:Uid="LblCustomizeToolBar" Text="#LblCustomizeToolBar" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,0,0,10"/>
+
+                        <ToggleSwitch x:Name="ToggleShowEraseAllMenuButton" 
+                                      x:Uid="ShowEraseAllMenuButton" 
+                                      IsOn="{Binding Source={StaticResource AppSettings}, Path=ShowEraseAllMenuButton, Mode=TwoWay}" 
+                                      OnContent="#ShowEraseAllMenuButton" 
+                                      OffContent="#HideEraseAllMenuButton" />
+
+                        <ToggleSwitch x:Name="ToggleShowProtractor" 
+                                      x:Uid="ToggleShowProtractor" 
+                                      IsOn="{Binding Source={StaticResource AppSettings}, Path=ShowProtractor, Mode=TwoWay}" 
+                                      OnContent="#ToggleShowProtractor" 
+                                      OffContent="#ToggleShowProtractor" />
+                        
+                        <TextBlock x:Uid="LblCustomizeStatusBar" Text="#LblCustomizeStatusBar" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,0,0,10"/>
+                        <ToggleSwitch x:Name="ToggleSShowShapeRecognitionButton" 
+                                      x:Uid="ShowShapeRecognitionButton" 
+                                      IsOn="{Binding Source={StaticResource AppSettings}, Path=ShowShapeRecognitionButton, Mode=TwoWay}" 
+                                      OnContent="#ShowShapeRecognitionButton" 
+                                      OffContent="#HideShapeRecognitionButton" />
+
+                        <TextBlock x:Uid="TxtRequireRestart" Margin="0,5,0,10" Foreground="#CCC" Text="#TxtRequireRestart" />
+
+                        <Button x:Name="BtnRestart" x:Uid="BtnRestart" Content="#BtnRestart" Click="BtnRestart_OnClick" />
+                    </StackPanel>
+                </RelativePanel>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" Padding="15" Background="#33000000">
+            <RelativePanel>
+                <Border x:Name="Logo" Height="90" Width="90" 
+                        Background="{StaticResource SystemControlBackgroundAccentBrush}" 
+                        HorizontalAlignment="Left">
+                    <interactivity:Interaction.Behaviors>
+                        <core1:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding ElementName=Logo}">
+                            <core1:NavigateToPageAction TargetPage="Tracing.Views.WelcomeFlipPage" />
+                        </core1:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                    <Image Source="/Assets/logoV4.png" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="27" />
+                </Border>
+
+                <StackPanel RelativePanel.RightOf="Logo" Margin="10,0,0,0">
+                    <TextBlock FontWeight="Bold" x:Uid="AboutAppTitle" Text="#AboutAppTitle" Margin="0,0,0,5"/>
+                    <TextBlock Margin="0,0,0,5" FontSize="12">
+                            <Run>© 2015-2018 edi.wang, Designed and Developed by</Run>
+                            <Run Text="{Binding Publisher}" />
+                    </TextBlock>
+                    <TextBlock Foreground="#666" FontSize="12" Tapped="ShowWhatsNew">
+                            <Run>Version</Run>
+                            <Run Text="{Binding Version}" />
+                            <Run>(</Run><Run Text="{Binding OperatingSystemVersion}" /><Run Text=" | " /><Run Text="{Binding CPUArch}" /><Run>)</Run>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <HyperlinkButton FontSize="12" x:Uid="LnkVisitBlog" Content="#LnkVisitBlog" NavigateUri="https://edi.wang" Margin="0,0,10,0"/>
+                        <HyperlinkButton FontSize="12" x:Name="LnkUpdateHistory" Content="Update History" Click="LnkUpdateHistory_OnClick" Margin="0,0,10,0" />
+                        <HyperlinkButton FontSize="12" Content="Feedback" Command="{Binding CommandFeedback}" />
+                    </StackPanel>
+                </StackPanel>
+            </RelativePanel>
+        </Grid>
+        
+        <ContentDialog Grid.Row="1" Grid.RowSpan="2" 
+                       x:Name="DigUpdateHistory" 
+                       d:IsHidden="True"
+                       Title="Update History (Chinese)" 
+                       PrimaryButtonText="OK">
+            <ScrollViewer>
+                <controls:MarkdownTextBlock x:Name="MdText" Background="Transparent" />
+            </ScrollViewer>
+        </ContentDialog>
+    </Grid>
+</Page>
+

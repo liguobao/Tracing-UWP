@@ -1,0 +1,190 @@
+﻿<Page
+    x:Class="Tracing.Views.WelcomeFlipPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tracing"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding Source={StaticResource Locator}, Path=WelcomeFlipViewModel}"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="32" />
+        </Grid.RowDefinitions>
+
+        <!--<Image Source="/Assets/welcome-screen/flipbg2.jpg" Grid.Row="0" Grid.RowSpan="3" Stretch="UniformToFill" />-->
+
+        <Grid Grid.Row="0" x:Name="GrdTitle" Background="Transparent" />
+
+        <TextBlock Grid.Row="2" VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Opacity="0.6"
+                   Margin="0,0,0,5" FontSize="12">
+            <Run>© 2015-2018 edi.wang, Designed and Developed by</Run>
+            <Run Text="{x:Bind Publisher}" />
+            <Run Text=" (Sample Images by Microsoft Japan), App Version " />
+            <Run Text="{x:Bind Version}" />
+            <Run>(</Run><Run Text="{x:Bind OperatingSystemVersion}" /><Run Text=" | " /><Run Text="{x:Bind CPUArch}" /><Run>)</Run>
+        </TextBlock>
+
+        <FlipView x:Name="MainFlip" 
+                  Grid.Row="1" 
+                  UseTouchAnimationsForAllNavigation="True" 
+                  Background="Transparent" 
+                  Margin="0,0,0,40"
+                  SelectionChanged="MainFlip_OnSelectionChanged">
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipMainTitle" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <TextBlock x:Uid="WelcomeFlipMainSubTitle" Text="#RES" Style="{StaticResource TitleTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="720" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipWalkThrough" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" />
+                                    <Image Source="/Assets/welcome-screen/EN-1.png" />
+
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeft0" Text="#RES" TextAlignment="Center" />
+                                    </Border>
+
+                                    <Button Background="#11FFFFFF" 
+                                            x:Name="BtnSkip"
+                                            Click="BtnSkip_Click"
+                                            Content="Skip" 
+                                            BorderThickness="0"
+                                            HorizontalAlignment="Center" 
+                                            FontSize="12" 
+                                            Padding="10,2" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep1Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep1Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <Image Source="/Assets/welcome-screen/step1.png" />
+                                    </Border>
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeftGeneric" Text="#RES" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep2Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep2Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <Image Source="/Assets/welcome-screen/step2.png" />
+                                    </Border>
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeftGeneric" Text="Swipe Left to Next" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep3Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep3Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <MediaElement x:Name="MediaStep3" Source="/Assets/welcome-screen/step3.mp4" AutoPlay="True" IsLooping="True" />
+                                    </Border>
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeftGeneric" Text="Swipe Left to Next" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep4Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep4Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <Image Source="/Assets/welcome-screen/step4.png" />
+                                    </Border>
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeftGeneric" Text="Swipe Left to Next" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep55Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep55Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <Image Source="/Assets/welcome-screen/step55.png" />
+                                    </Border>
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10" Margin="100,20">
+                                        <TextBlock x:Uid="WelcomeFlipSwipeLeftGeneric" Text="Swipe Left to Next" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+            <FlipViewItem>
+                <Viewbox>
+                    <Grid HorizontalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock x:Uid="WelcomeFlipStep5Title" Text="#RES" Style="{StaticResource HeaderTextBlockStyle}" TextAlignment="Center" />
+                            <Grid VerticalAlignment="Center" MaxWidth="640" Margin="0,40,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Uid="WelcomeFlipStep5Desc" Text="#RES" Style="{StaticResource SubtitleTextBlockStyle}" TextAlignment="Center" Margin="0,0,0,10" />
+                                    <Border Background="#11FFFFFF" Padding="10" CornerRadius="10">
+                                        <Image Source="/Assets/welcome-screen/step5.png" />
+                                    </Border>
+                                    <Border Background="ForestGreen" Padding="10" CornerRadius="10" Margin="100,20" Tapped="GoToMainPage">
+                                        <TextBlock x:Uid="WelcomeFlipLetStart" Text="#RES" TextAlignment="Center" />
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </FlipViewItem>
+        </FlipView>
+    </Grid>
+</Page>

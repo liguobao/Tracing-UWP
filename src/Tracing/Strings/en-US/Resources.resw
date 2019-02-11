@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>Tracing</value>
+  </data>
+  <data name="BlowUp" xml:space="preserve">
+    <value>App Blow Up</value>
+  </data>
+  <data name="BtnChoosePic.Label" xml:space="preserve">
+    <value>Open Picture</value>
+  </data>
+  <data name="BtnClearPic.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="BtnOpenImageFile.Text" xml:space="preserve">
+    <value>Open Image File</value>
+  </data>
+  <data name="BtnOpenInkFile.Text" xml:space="preserve">
+    <value>Open Ink (.ink) File</value>
+  </data>
+  <data name="BtnOpenSampleImage.Text" xml:space="preserve">
+    <value>Sample Images...</value>
+  </data>
+  <data name="BtnReview.Content" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="BtnSaveImageFile.Text" xml:space="preserve">
+    <value>Save as Image (Transparent Background)</value>
+  </data>
+  <data name="BtnSaveImageFileColoredBackground.Text" xml:space="preserve">
+    <value>Save as Image (With Background Color)</value>
+  </data>
+  <data name="BtnSaveInkFile.Text" xml:space="preserve">
+    <value>Save Ink (.ink) File</value>
+  </data>
+  <data name="DigSettings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="HolyCowSupportDrag" xml:space="preserve">
+    <value>Holy high! It supports drag and drop!</value>
+  </data>
+  <data name="LnkVisitBlog.Content" xml:space="preserve">
+    <value>Author's Blog</value>
+  </data>
+  <data name="MyTracingWork" xml:space="preserve">
+    <value>My Tracing Work</value>
+  </data>
+  <data name="NoInk" xml:space="preserve">
+    <value>No Ink</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Your Ink has been saved.</value>
+  </data>
+  <data name="ToggleInkBackgroundTransparent.OffContent" xml:space="preserve">
+    <value>Ink Background Intransparent</value>
+  </data>
+  <data name="ToggleInkBackgroundTransparent.OnContent" xml:space="preserve">
+    <value>Ink Background Transparent</value>
+  </data>
+  <data name="ToggleMouse.OffContent" xml:space="preserve">
+    <value>Mouse Disabled</value>
+  </data>
+  <data name="ToggleMouse.OnContent" xml:space="preserve">
+    <value>Mouse Enabled</value>
+  </data>
+  <data name="TogglePressure.OffContent" xml:space="preserve">
+    <value>Pressure Insensitive</value>
+  </data>
+  <data name="TogglePressure.OnContent" xml:space="preserve">
+    <value>Pressure Sensitive</value>
+  </data>
+  <data name="ToggleTouch.OffContent" xml:space="preserve">
+    <value>Touch Off</value>
+  </data>
+  <data name="ToggleTouch.OnContent" xml:space="preserve">
+    <value>Touch On</value>
+  </data>
+  <data name="TxtAboutHeader.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="TxtAboutText.Text" xml:space="preserve">
+    <value>This App is designed to let you portray a picture using your Surface Pen, touch screen or mouse.</value>
+  </data>
+  <data name="TxtAboutTitle.Text" xml:space="preserve">
+    <value>Tracing</value>
+  </data>
+  <data name="TxtDisplay.Text" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="TxtMessage.Text" xml:space="preserve">
+    <value>Choose a picture and start drawing</value>
+  </data>
+  <data name="TxtMorePen.Text" xml:space="preserve">
+    <value>For more Pen Settings, go to Windows Settings - Devices - Pen &amp; Windows Ink</value>
+  </data>
+  <data name="TxtOperations.Text" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="TxtPenSettings.Text" xml:space="preserve">
+    <value>Pen Settings</value>
+  </data>
+  <data name="TxtRequireRestart.Text" xml:space="preserve">
+    <value>Require Restart App</value>
+  </data>
+  <data name="TxtSettingsHeader.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="UsePrimaryLanguageOverride.OffContent" xml:space="preserve">
+    <value>Use System Language</value>
+  </data>
+  <data name="UsePrimaryLanguageOverride.OnContent" xml:space="preserve">
+    <value>Use Custom Language</value>
+  </data>
+  <data name="TxtImageSize.Text" xml:space="preserve">
+    <value>Picture Size</value>
+  </data>
+  <data name="BtnResetSize.Label" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Touch_Disabled" xml:space="preserve">
+    <value>Touch Disabled</value>
+  </data>
+  <data name="Touch_Enabled" xml:space="preserve">
+    <value>Touch Enabled</value>
+  </data>
+  <data name="Mouse_Enabled" xml:space="preserve">
+    <value>Mouse Enabled</value>
+  </data>
+  <data name="Mouse_Disabled" xml:space="preserve">
+    <value>Mouse Disabled</value>
+  </data>
+  <data name="MainPage_ToggleFullScreenModeButton_Click_Exit_Full_Screen" xml:space="preserve">
+    <value>Exit Full Screen</value>
+  </data>
+  <data name="BtnSaveGifFile.Text" xml:space="preserve">
+    <value>GIF with embedded ISF (.GIF)</value>
+  </data>
+  <data name="FlyoutSaveAs.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="BtnOpenGifFile.Text" xml:space="preserve">
+    <value>Open GIF File (ISF embedded)</value>
+  </data>
+  <data name="FlyoutOpenInk.Text" xml:space="preserve">
+    <value>Open Ink File</value>
+  </data>
+  <data name="MainPage_DtmOnDataRequested_ShareTitle" xml:space="preserve">
+    <value>My Work</value>
+  </data>
+  <data name="TxtColorLocked.Text" xml:space="preserve">
+    <value>Color Locked</value>
+  </data>
+  <data name="ChkLockColor.Content" xml:space="preserve">
+    <value>Use this color and hide default pen palettes</value>
+  </data>
+  <data name="Status-FullScreen" xml:space="preserve">
+    <value>Full Screen</value>
+  </data>
+  <data name="Status-Ready" xml:space="preserve">
+    <value>Ready.</value>
+  </data>
+  <data name="DigSampleGallery.Title" xml:space="preserve">
+    <value>Sample Gallery</value>
+  </data>
+  <data name="DigAdvColor.Title" xml:space="preserve">
+    <value>Advanced Color</value>
+  </data>
+  <data name="DigSampleGallery.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DigSampleGallery.PrimaryButtonText" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="MessageDialogTitle-Error" xml:space="preserve">
+    <value>ERROR</value>
+  </data>
+  <data name="BtnSave.Label" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Status.ImageSaved" xml:space="preserve">
+    <value>Image Saved.</value>
+  </data>
+  <data name="SaveImageFileNamePrefix" xml:space="preserve">
+    <value>Tracing_</value>
+  </data>
+  <data name="BtnLockCanvasLabel.Text" xml:space="preserve">
+    <value>Lock Ink Movement</value>
+  </data>
+  <data name="BtnPenSettings.Content" xml:space="preserve">
+    <value>Pen &amp; Windows Ink Settings</value>
+  </data>
+  <data name="ToggleVibrate.OnContent" xml:space="preserve">
+    <value>Vibrate Enabled</value>
+  </data>
+  <data name="ToggleVibrate.OffContent" xml:space="preserve">
+    <value>Vibrate Disabled</value>
+  </data>
+  <data name="TxtSurfaceDialSettingsDescription.Text" xml:space="preserve">
+    <value>For more Surface Dial settings, go to Windows Settings - Devices - Wheel</value>
+  </data>
+  <data name="TxtSurfaceDial.Text" xml:space="preserve">
+    <value>Surface Dial</value>
+  </data>
+  <data name="BtnWheelSettings.Content" xml:space="preserve">
+    <value>Wheel Settings</value>
+  </data>
+  <data name="AboutAppTitle.Text" xml:space="preserve">
+    <value>Tracing (Windows 10 Universal)</value>
+  </data>
+  <data name="TxtLanguage.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="BtnBackgroundColorLabel.Text" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="DigAdvColor.PrimaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DigAdvColor.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BtnRecShapeLabel.Text" xml:space="preserve">
+    <value>Draw to Shape (Preview)</value>
+  </data>
+  <data name="BtnUseAlignmentGrid.Content" xml:space="preserve">
+    <value>Use Alignment Grid</value>
+  </data>
+  <data name="WelcomeFlipMainTitle.Text" xml:space="preserve">
+    <value>Welcome to Tracing</value>
+  </data>
+  <data name="WelcomeFlipMainSubTitle.Text" xml:space="preserve">
+    <value>For Windows 10 Creators Update</value>
+  </data>
+  <data name="WelcomeFlipWalkThrough.Text" xml:space="preserve">
+    <value>We will walk you through the basic usage.</value>
+  </data>
+  <data name="WelcomeFlipSwipeLeft0.Text" xml:space="preserve">
+    <value>Swipe Left to Get Started</value>
+  </data>
+  <data name="WelcomeFlipStep1Title.Text" xml:space="preserve">
+    <value>Step 1: Choose a Picture</value>
+  </data>
+  <data name="WelcomeFlipStep1Desc.Text" xml:space="preserve">
+    <value>You can choose from your own pictures, sample images or a previous saved ink file.</value>
+  </data>
+  <data name="WelcomeFlipSwipeLeftGeneric.Text" xml:space="preserve">
+    <value>Swipe Left to Next</value>
+  </data>
+  <data name="WelcomeFlipStep2Title.Text" xml:space="preserve">
+    <value>Step 2: Draw Your Picture</value>
+  </data>
+  <data name="WelcomeFlipStep2Desc.Text" xml:space="preserve">
+    <value>Use your Pen, mouse or touch screen to draw the tracing. You can use all kinds of ink tools on the toolbar alone the way.</value>
+  </data>
+  <data name="WelcomeFlipStep3Title.Text" xml:space="preserve">
+    <value>Step 3: Preview Your Work</value>
+  </data>
+  <data name="WelcomeFlipStep3Desc.Text" xml:space="preserve">
+    <value>Change the opacity slider to preview your tracing work.</value>
+  </data>
+  <data name="WelcomeFlipStep4Title.Text" xml:space="preserve">
+    <value>Step 4: Save Your Drawing</value>
+  </data>
+  <data name="WelcomeFlipStep4Desc.Text" xml:space="preserve">
+    <value>Save whatever format you like!</value>
+  </data>
+  <data name="WelcomeFlipStep5Desc.Text" xml:space="preserve">
+    <value>Congratulations, you can tell your friends you draw it from scratch :)</value>
+  </data>
+  <data name="WelcomeFlipLetStart.Text" xml:space="preserve">
+    <value>Let's Start!</value>
+  </data>
+  <data name="WelcomeFlipStep5Title.Text" xml:space="preserve">
+    <value>That's How it's Done!</value>
+  </data>
+  <data name="WelcomeFlipStep55Title.Text" xml:space="preserve">
+    <value>Without Pen or Touch?</value>
+  </data>
+  <data name="WelcomeFlipStep55Desc.Text" xml:space="preserve">
+    <value>Enable Touch or Mouse drawing here if you don't have a pen-enabled device.</value>
+  </data>
+  <data name="BtnInkReplayContent.Text" xml:space="preserve">
+    <value>Ink Replay</value>
+  </data>
+  <data name="TxtDefaultSize.Text" xml:space="preserve">
+    <value>Default Size </value>
+  </data>
+  <data name="TxtCanvasSettings.Text" xml:space="preserve">
+    <value>Canvas Settings</value>
+  </data>
+  <data name="SliderDefaultCanvasWidth.Header" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="SliderDefaultCanvasHeight.Header" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="BtnResetDefaultSize.Content" xml:space="preserve">
+    <value>Fit to Screen Size</value>
+  </data>
+  <data name="BtnAlignmentGridLabel.Text" xml:space="preserve">
+    <value>Grid Lines</value>
+  </data>
+  <data name="ImageStretchMenuItemNone.Text" xml:space="preserve">
+    <value>None (Original Aspect Radio)</value>
+  </data>
+  <data name="ImageStretchMenuItemFill.Text" xml:space="preserve">
+    <value>Fill (Resized)</value>
+  </data>
+  <data name="ImageStretchMenuItemUniform.Text" xml:space="preserve">
+    <value>Uniform (Resize to Fit Aspect Radio)</value>
+  </data>
+  <data name="ImageStretchMenuItemUniformToFill.Text" xml:space="preserve">
+    <value>Uniform to Fill (Clipped to Fit Aspect Radio)</value>
+  </data>
+  <data name="TxtUnsaved.Text" xml:space="preserve">
+    <value>Unsaved</value>
+  </data>
+  <data name="BtnClearAll.Label" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+  <data name="BtnSaveCurrent.Text" xml:space="preserve">
+    <value>Save (Ctrl + S)</value>
+  </data>
+  <data name="BtnClearAllConfirm" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="BtnClearAllCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ClearAllWarning" xml:space="preserve">
+    <value>Clear both picture and ink, are you sure?</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="TxtTotalStrokes.Text" xml:space="preserve">
+    <value>Strokes:</value>
+  </data>
+  <data name="TxtProcessing.Text" xml:space="preserve">
+    <value>Processing...</value>
+  </data>
+  <data name="BtnRotateLeft.Text" xml:space="preserve">
+    <value>Rotate Left</value>
+  </data>
+  <data name="BtnRotateRight.Text" xml:space="preserve">
+    <value>Rotate Right</value>
+  </data>
+  <data name="FlyoutImageRotation.Text" xml:space="preserve">
+    <value>Image Rotation</value>
+  </data>
+  <data name="ShowEraseAllMenuButton.OffContent" xml:space="preserve">
+    <value>Hiding "Erase All Ink" Under Eraser Button</value>
+  </data>
+  <data name="ShowEraseAllMenuButton.OnContent" xml:space="preserve">
+    <value>Displaying "Erase All Ink" Under Eraser Button</value>
+  </data>
+  <data name="ToggleTilt.OffContent" xml:space="preserve">
+    <value>Disable Pen Tilt on Pencil</value>
+  </data>
+  <data name="ToggleTilt.OnContent" xml:space="preserve">
+    <value>Enable Pen Tilt on Pencil (Require Hardware Support)</value>
+  </data>
+  <data name="ToggleEnableDial.OffContent" xml:space="preserve">
+    <value>Surface Dial Disabled</value>
+  </data>
+  <data name="ToggleEnableDial.OnContent" xml:space="preserve">
+    <value>Surface Dial Enabled</value>
+  </data>
+  <data name="ShowShapeRecognitionButton.OnContent" xml:space="preserve">
+    <value>Show Shape Recognition Button</value>
+  </data>
+  <data name="ShowShapeRecognitionButton.OffContent" xml:space="preserve">
+    <value>Hide Shape Recognition Button</value>
+  </data>
+  <data name="LblCustomizeStatusBar.Text" xml:space="preserve">
+    <value>Customize Status Bar</value>
+  </data>
+  <data name="LblAdvancedOptions.Text" xml:space="preserve">
+    <value>Advanced Options</value>
+  </data>
+  <data name="LblCustomizeToolBar.Text" xml:space="preserve">
+    <value>Customize Tool Bar</value>
+  </data>
+  <data name="BtnApplyNewCanvasSize.Content" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="TxtImg.Text" xml:space="preserve">
+    <value>IMG: </value>
+  </data>
+  <data name="InkReplay-Save-Your-Work" xml:space="preserve">
+    <value>Please Save Your Work</value>
+  </data>
+  <data name="ToggleCurve.OffContent" xml:space="preserve">
+    <value>Not Using Bézier Curve to Smooth Ink, All Manual Control</value>
+  </data>
+  <data name="ToggleCurve.OnContent" xml:space="preserve">
+    <value>Using Bézier Curve to Automatically Smooth Ink</value>
+  </data>
+  <data name="ToggleShowProtractor.OffContent" xml:space="preserve">
+    <value>Hide Protractor</value>
+  </data>
+  <data name="ToggleShowProtractor.OnContent" xml:space="preserve">
+    <value>Show Protractor</value>
+  </data>
+  <data name="TouchZoomDisabled" xml:space="preserve">
+    <value>Touch zooming disabled, canvas locked for inking.</value>
+  </data>
+  <data name="TouchZoomEnabled" xml:space="preserve">
+    <value>Touch zooming enabled, inking disabled. (Double Click again to disable)</value>
+  </data>
+  <data name="TouchZoomWarning" xml:space="preserve">
+    <value>Double Tap to zoom or move canvas, Unlock Ink movement to zoom or move ink (right bottom corner).</value>
+  </data>
+  <data name="BtnTakePicture.Text" xml:space="preserve">
+    <value>Take Photo as Picture</value>
+  </data>
+  <data name="CameraNotFound" xml:space="preserve">
+    <value>Camera Not Found</value>
+  </data>
+  <data name="CameraNotFoundDetail" xml:space="preserve">
+    <value>Camera not found on your device. Please check if this App is denied access to the camera in Windows Settings.</value>
+  </data>
+  <data name="BtnRestart.Content" xml:space="preserve">
+    <value>Restart Now</value>
+  </data>
+  <data name="BtnLayers.Label" xml:space="preserve">
+    <value>Layers</value>
+  </data>
+  <data name="ToggleImageLayer.Text" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="ToggleInkLayer.Text" xml:space="preserve">
+    <value>Ink</value>
+  </data>
+</root>
